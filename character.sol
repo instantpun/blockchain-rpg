@@ -1,5 +1,4 @@
 pragma solidity ^0.7.5;
-// pragma solidity >=0.7.5 <8.0.0;
 
 contract Character {
     string public characterName;
