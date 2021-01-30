@@ -1,11 +1,12 @@
-pragma solidity ^0.7.5;
-// pragma solidity >=0.7.5 <8.0.0;
+//pragma solidity ^0.7.5;
+pragma solidity >=0.7.5 <8.0.0;
 
 contract Character {
     string public characterName;
     uint256 public maxHP;
     uint256 public currentHP;
     uint256 public minHP = 0;
+    uint256 public arrowDirection = 0;
 
     address owner;
 
@@ -13,6 +14,25 @@ contract Character {
     constructor() {
         owner = msg.sender; // owner address is the address of whoever deploys the smart contract
     }
+
+    struct characterPosition {
+        uint256 x;
+        uint256 y;
+        string direction;
+    }
+    characterPosition pos;
+    
+    struct characterFacing {
+        uint256 x;
+        uint256 y;
+    }
+    characterFacing face;
+    
+    struct characterSteal {
+        uint256 x;
+        uint256 y;
+    }
+    characterSteal steal;
 
     function setCharacterName(string memory _characterName) public {
         require(msg.sender == owner, "Cannot modify! You are not the owner!");
@@ -42,5 +62,23 @@ contract Character {
     
     function getCurrentHP() public view returns(uint256) {
         return currentHP;
+    }
+    
+    function getCharacterPosition() public view returns(uint256,uint256) {
+        return (pos.x,pos.y);
+    }
+    
+    function moveCharacter(string memory _direction) public {
+        require(msg.sender == owner, "Cannot modify! You are not the owner!");
+        
+        if( keccak256(bytes(_direction)) == keccak256(bytes("up")) ) {   // if else statement
+              pos.y = pos.y + 1;
+          } else if( keccak256(bytes(_direction)) == keccak256(bytes("down")) ){
+             pos.y = pos.y - 1;
+          } else if( keccak256(bytes(_direction)) == keccak256(bytes("right")) ){
+             pos.x = pos.x + 1;
+          }else if( keccak256(bytes(_direction)) == keccak256(bytes("left")) ){
+             pos.x = pos.x - 1;
+          }       
     }
 }
