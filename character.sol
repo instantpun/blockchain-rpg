@@ -73,7 +73,7 @@ contract Character {
         
         if( keccak256(bytes(_direction)) == keccak256(bytes("up")) ) {   // if else statement
               pos.y = pos.y + 1;
-          } else if( keccak256(bytes(_direction)) == keccak256(bytes("down")) ){
+          } else if( keccak256(bytes(_direction)) == keccak256(bytes("dow")) ){
              pos.y = pos.y - 1;
           } else if( keccak256(bytes(_direction)) == keccak256(bytes("right")) ){
              pos.x = pos.x + 1;
